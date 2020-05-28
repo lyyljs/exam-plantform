@@ -1,13 +1,7 @@
 package exam.paperContext.domain.model.paper;
 
-import java.util.List;
+import exam.common.domain.BaseRepository;
 
-public interface PaperRepository {
-    Paper find(PaperId paperId);
+public interface PaperRepository extends BaseRepository<Paper, PaperId> {
 
-    void save(Paper paper);
-
-    PaperId nextPaperId();
-
-    List<Paper> getAll();
 }

@@ -1,4 +1,4 @@
-package exam.paperContext.domain.shared;
+package exam.common.domain;
 
 public interface ValueObject<T> {
     boolean sameValueAs(T other);

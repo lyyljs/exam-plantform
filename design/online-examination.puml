@@ -1,0 +1,131 @@
+@startuml
+
+package Course <<Aggregate>> {
+    class Course <<Aggregate Root>> {
+        id: CourseId
+        name: String
+        videoRepo: String
+        examinationId: ExaminationId
+        state: CourseState
+        createBy: TeacherId
+        lastUpdateBy: TeacherId
+        createTime: LocalDateTime
+        updateTime: LocalDateTime
+        --
+        create(): Course
+        update(): Course
+        publish(): Course
+    }
+
+    Course --> CourseState
+    enum CourseState {
+        PUBLISHED
+        UNPUBLISHED
+    }
+}
+
+package BlankQuiz <<Aggregate>> {
+    class BlankQuiz <<Aggregate Root>> {
+        id: BlankQuizId
+        description: String
+        answer: String
+        createBy: TeacherId
+        lastUpdateBy: TeacherId
+        createTime: LocalDateTime
+        updateTime: LocalDateTime
+        ---
+        create(): BlankQuiz
+        update(): BlankQuiz
+        delete()
+    }
+}
+
+package Paper <<Aggregate>> {
+    class Paper <<Aggregate Root>> {
+        id: PaperId
+        blankQuizzes: List<PaperBlankQuiz>
+        createBy: TeacherId
+        lastUpdateBy: TeacherId
+        createTime: LocalDateTime
+        updateTime: LocalDateTime
+        ---
+        assemble(): Paper
+        reassemble(): Paper
+    }
+
+    Paper "1" *--> "5-20" PaperBlankQuiz
+    class "BlankQuiz" as PaperBlankQuiz <<Value Object>> {
+        blankQuizId: BlankQuizId
+        order: int
+        score: int
+    }
+}
+
+package Examination <<Aggregate>> {
+    class Examination <<AggregateRoot>> {
+        id: ExaminationId
+        paperId: PaperId
+        startTime: LocalDateTime
+        dueTime: LocalDateTime
+        paper: PaperVO
+        createBy: TeacherId
+        lastUpdateBy: TeacherId
+        createTime: LocalDateTime
+        updateTime: LocalDateTime
+        ---
+        create(): Examination
+        start(): Examination
+    }
+
+    Examination "1" *--> "1" PaperVO
+    class "Paper" as PaperVO <<Value Object>> {
+        blankQuizzes: List<PaperVOBlankQuiz>
+    }
+
+    PaperVO "1" *--> "5-20" PaperVOBlankQuiz
+    class "BlankQuiz" as PaperVOBlankQuiz <<Value Object>> {
+        blankQuizId: BlankQuizId
+        description: String
+        answer: String
+        order: int
+        score: int
+    }
+}
+
+package AnswerSheet <<Aggregate>> {
+    class AnswerSheet <<AggregateRoot>> {
+        id: AnswerSheetId
+        studentId: StudentId
+        score: int
+        studentAnswers: List<StudentAnswer>
+        examinationId: ExaminationId
+        createTime: LocalDateTime
+        handInTime: LocalDateTime
+        reviewTime: LocalDateTime
+        updateTime: LocalDateTime
+        ---
+        assign(): AnswerSheet
+        submit(): AnswerSheet
+        handIn(): AnswerSheet
+        review(): AnswerSheet
+    }
+
+    AnswerSheet "1" *--> "5-20" StudentAnswer
+    class StudentAnswer <<Value Object>> {
+        order: int
+        answer: String
+    }
+}
+
+package Certification <<Aggregate>> {
+    class Certification <<AggregateRoot>> {
+        id: CertificationId
+        studentId: StudentId
+        courseName: String
+        createTime: LocalDateTime
+        ---
+        create(): Certification
+    }
+}
+
+@enduml

@@ -22,7 +22,7 @@ public class PaperService {
     public PaperId assemblePaper(AssemblePaperCommand command) {
         List<BlankQuiz> blankQuizzes = blankQuizFrom(command);
         final String teacherId = command.getTeacherId();
-        final PaperId paperId = paperRepository.nextPaperId();
+        final PaperId paperId = paperRepository.nextId();
 
         final Paper paper = Paper.assemble(paperId, teacherId, blankQuizzes);
         paperRepository.save(paper);
@@ -43,8 +43,9 @@ public class PaperService {
     }
 
     private List<BlankQuiz> blankQuizFrom(AssemblePaperCommand command) {
-        return command.getQuizzes().stream().map(quiz -> {
-            return new BlankQuiz(quiz.getQuizId(), quiz.getScore());
-        }).collect(Collectors.toList());
+        return command.getQuizzes()
+                .stream()
+                .map(quiz -> new BlankQuiz(quiz.getQuizId(), quiz.getScore()))
+                .collect(Collectors.toList());
     }
 }

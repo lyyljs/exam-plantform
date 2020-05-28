@@ -1,6 +1,6 @@
 package exam.paperContext.domain.model.paper;
 
-import exam.paperContext.domain.shared.ValueObject;
+import exam.common.domain.ValueObject;
 import lombok.Getter;
 
 import java.util.Objects;

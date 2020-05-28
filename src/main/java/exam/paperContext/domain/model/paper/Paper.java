@@ -1,6 +1,6 @@
 package exam.paperContext.domain.model.paper;
 
-import exam.paperContext.domain.shared.Entity;
+import exam.common.domain.Entity;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
