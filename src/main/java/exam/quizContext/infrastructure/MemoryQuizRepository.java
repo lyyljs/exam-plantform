@@ -1,8 +1,8 @@
 package exam.quizContext.infrastructure;
 
-import exam.quizContext.domain.Quiz;
-import exam.quizContext.domain.QuizId;
-import exam.quizContext.domain.QuizRepository;
+import exam.quizContext.domain.quiz.Quiz;
+import exam.quizContext.domain.quiz.QuizId;
+import exam.quizContext.domain.quiz.QuizRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.*;

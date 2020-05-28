@@ -1,4 +1,4 @@
-package exam.quizContext.domain;
+package exam.quizContext.domain.quiz;
 
 import exam.common.domain.BaseRepository;
 

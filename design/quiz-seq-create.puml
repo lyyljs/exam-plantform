@@ -1,0 +1,11 @@
+@startuml
+actor Teacher
+Teacher -> QuizController : POST /quiz
+QuizController -> QuizService : createQuiz()
+QuizService -> QuizRepository: nextId()
+entity Quiz
+QuizService -> Quiz : create()
+QuizService -> QuizRepository: save()
+database quizDB
+QuizRepository -> quizDB: INSERT ***
+@enduml

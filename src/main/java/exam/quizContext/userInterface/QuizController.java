@@ -2,7 +2,7 @@ package exam.quizContext.userInterface;
 
 import exam.quizContext.application.CreateQuizCommand;
 import exam.quizContext.application.QuizService;
-import exam.quizContext.domain.Quiz;
+import exam.quizContext.domain.quiz.Quiz;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

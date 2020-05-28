@@ -1,6 +1,6 @@
 package exam.quizContext.userInterface;
 
-import exam.quizContext.domain.QuizId;
+import exam.quizContext.domain.quiz.QuizId;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

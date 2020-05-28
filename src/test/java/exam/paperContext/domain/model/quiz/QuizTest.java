@@ -1,9 +1,9 @@
 package exam.paperContext.domain.model.quiz;
 
-import exam.quizContext.domain.BlankAnswerException;
-import exam.quizContext.domain.BlankDescriptionException;
-import exam.quizContext.domain.Quiz;
-import exam.quizContext.domain.QuizId;
+import exam.quizContext.domain.quiz.BlankAnswerException;
+import exam.quizContext.domain.quiz.BlankDescriptionException;
+import exam.quizContext.domain.quiz.Quiz;
+import exam.quizContext.domain.quiz.QuizId;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

@@ -1,8 +1,8 @@
 package exam.quizContext.application;
 
-import exam.quizContext.domain.Quiz;
-import exam.quizContext.domain.QuizId;
-import exam.quizContext.domain.QuizRepository;
+import exam.quizContext.domain.quiz.Quiz;
+import exam.quizContext.domain.quiz.QuizId;
+import exam.quizContext.domain.quiz.QuizRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
