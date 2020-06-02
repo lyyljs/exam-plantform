@@ -6,16 +6,10 @@ import exam.quizContext.domain.quiz.QuizRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class QuizService {
     private final QuizRepository quizRepository;
-
-    public Quiz findById(String quizId) {
-        return quizRepository.find(QuizId.of(quizId));
-    }
 
     public QuizId createQuiz(CreateQuizCommand command) {
         final QuizId quizId = quizRepository.nextId();
@@ -25,15 +19,11 @@ public class QuizService {
         return quizId;
     }
 
-    public List<Quiz> getAll() {
-        return quizRepository.getAll();
+    public void reviseQuiz(String quizId, CreateQuizCommand command) {
+        quizRepository.find(QuizId.of(quizId)).revise(command.getDescription(), command.getAnswer(), command.getTeacherId());
     }
 
-    public void updateQuiz(String quizId, CreateQuizCommand command) {
-        quizRepository.find(QuizId.of(quizId)).update(command.getDescription(), command.getAnswer(), command.getTeacherId());
-    }
-
-    public void deleteQuiz(String quizId) {
-        quizRepository.delete(QuizId.of(quizId));
+    public void removeQuiz(String quizId, String teacherId) {
+        quizRepository.find(QuizId.of(quizId)).remove(teacherId);
     }
 }

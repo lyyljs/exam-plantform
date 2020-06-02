@@ -4,6 +4,8 @@ import exam.paperContext.application.AssemblePaperCommand;
 import exam.paperContext.application.PaperService;
 import exam.paperContext.domain.model.paper.Paper;
 import exam.paperContext.domain.model.paper.PaperId;
+import exam.paperContext.infrastructure.MemoryPaperReadRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -11,14 +13,11 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequiredArgsConstructor
 public class PaperController {
 
-    private PaperService paperService;
-
-    @Autowired
-    public PaperController(PaperService paperService) {
-        this.paperService = paperService;
-    }
+    private final PaperService paperService;
+    private final MemoryPaperReadRepository memoryPaperReadRepository;
 
     @PostMapping("/papers")
     @ResponseBody
@@ -30,7 +29,7 @@ public class PaperController {
 
     @GetMapping("/papers")
     List<Paper> getAll() {
-        return paperService.getAll();
+        return memoryPaperReadRepository.getAllByReversedOrder();
     }
 
     @PutMapping("/papers/{paperId}")

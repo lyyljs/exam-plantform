@@ -27,6 +27,7 @@ public class QuizTest {
         assertThat(quiz.getQuizId(), is(QuizId.of("quiz-f500ee0d-3c9f-494a-bc13-993250053194")));
         assertThat(quiz.getDescription(), is("a4c68d5d-6c18-4707-b8c2-1fd18846ebf1"));
         assertThat(quiz.getAnswer(), is("29bbb66c-80af-45b3-b593-fc4a358e900e"));
+        assertThat(quiz.isRemoved(), is(false));
         assertThat(quiz.getCreateTime(), instanceOf(LocalDateTime.class));
         assertThat(quiz.getUpdateTime(), instanceOf(LocalDateTime.class));
     }
@@ -53,5 +54,39 @@ public class QuizTest {
 
             Quiz quiz = Quiz.create(quizId, description, answer, teacherId);
         });
+    }
+
+    @Test
+    void should_quiz_revise_success() {
+        final String teacherId = "teacher-6b35fdd8-31de-4af4-9420-3331058260c5";
+        final QuizId quizId = QuizId.of("quiz-f500ee0d-3c9f-494a-bc13-993250053194");
+        final String description = "a4c68d5d-6c18-4707-b8c2-1fd18846ebf1";
+        final String answer = "29bbb66c-80af-45b3-b593-fc4a358e900e";
+
+        Quiz quiz = Quiz.create(quizId, description, answer, teacherId);
+
+        final String reviseDescription = "29bbb66c-80af-45b3-b593-fc4a358e900e";
+        final String reviseAnswer = "a4c68d5d-6c18-4707-b8c2-1fd18846ebf1";
+
+        quiz.revise(reviseDescription, reviseAnswer, teacherId);
+
+        assertThat(quiz.getDescription(), is("29bbb66c-80af-45b3-b593-fc4a358e900e"));
+        assertThat(quiz.getAnswer(), is("a4c68d5d-6c18-4707-b8c2-1fd18846ebf1"));
+    }
+
+    @Test
+    void should_quiz_remove_success() {
+        final String teacherId = "teacher-6b35fdd8-31de-4af4-9420-3331058260c5";
+        final QuizId quizId = QuizId.of("quiz-f500ee0d-3c9f-494a-bc13-993250053194");
+        final String description = "a4c68d5d-6c18-4707-b8c2-1fd18846ebf1";
+        final String answer = "29bbb66c-80af-45b3-b593-fc4a358e900e";
+
+        Quiz quiz = Quiz.create(quizId, description, answer, teacherId);
+
+        assertThat(quiz.isRemoved(), is(false));
+
+        quiz.remove(teacherId);
+
+        assertThat(quiz.isRemoved(), is(true));
     }
 }

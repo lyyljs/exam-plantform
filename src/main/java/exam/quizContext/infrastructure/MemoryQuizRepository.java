@@ -16,11 +16,6 @@ public class MemoryQuizRepository implements QuizRepository {
     private final Map<QuizId, Quiz> quizzes = new ConcurrentHashMap<>();
 
     @Override
-    public void delete(QuizId quizId) {
-        quizzes.remove(quizId);
-    }
-
-    @Override
     public Quiz find(QuizId quizId) {
         return of(quizzes.get(quizId)).orElseThrow(NullPointerException::new);
     }
